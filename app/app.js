@@ -2,7 +2,7 @@
 {
       'use strict';
       var module = angular.module ('exerciseApp', ['ngResource', 'ngRoute']);
-      var i;
+      //var i;
       module.config (function ($provide, $routeProvider)
       {
             $provide.decorator ('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
@@ -13,9 +13,9 @@
             });
             $routeProvider.when ('/details/:id', {
                   templateUrl: 'brainCandyDetails.html',
-                  controller: 'BrainCandyDetailsCtrl as candyDetails'
+                  controller: 'BrainCandyDetailsCtrl as candyDetails',
             });
-            $routeProvider.when ("/new", {
+            $routeProvider.when ('/new', {
                   templateUrl: 'brainCandyDetails.html',
                   controller: 'BrainCandyDetailsCtrl as candyDetails'
             });
@@ -23,7 +23,6 @@
                   redirectTo: '/'
             });
       });
-      ;
 
       module.run (function ($httpBackend)
       {
@@ -32,17 +31,17 @@
             [
                   {
                         id: sequence++,
-                        name: "Krowka",
+                        name: 'Krowka',
                         factory: 'Wawel'
                   },
                   {
                         id: sequence++,
                         name: 'Tiki-taki',
-                        factory: 'Wawel'
+                        factory: 'Wawel',
                   },
                   {
                         id: sequence++,
-                        name: "Michalki",
+                        name: 'Michalki',
                         factory: 'Wawel'
                   }
             ].every (function (value)
@@ -51,22 +50,21 @@
                   return true;
             });
 
-            function a()
+            /*function a()
             {
 
-            };
+            };*/
 
             $httpBackend.whenGET (/\/api\/candy\/(\d+)/).respond (function (method, url)
             {
                   var match = /\/api\/candy\/(\d+)/.exec (url);
-                  var templateUrl;
                   if (match) {
                         var id = parseInt (match[1], 10);
                         return [200, candies[id]];
                   }
                   return [404];
             });
-            $httpBackend.whenGET ("/api/candy").respond (function ()
+            $httpBackend.whenGET ('/api/candy').respond (function ()
             {
                   return [200, candies];
             });
@@ -95,7 +93,7 @@
                         return [200];
                   }
                   return [404];
-            })
+            });
 
             $httpBackend.whenGET (/.*\.html/).passThrough ();
 
